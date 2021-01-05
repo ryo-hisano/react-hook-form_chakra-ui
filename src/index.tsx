@@ -120,7 +120,12 @@ export default function App() {
     <ChakraProvider>
       <CSSReset />
       <Box p={4}>
-        {!formState.isSubmitted && (
+        {formState.isSubmitted ? (
+          <Alert status="success" mb={4}>
+            <AlertIcon />
+            送信完了しました。
+          </Alert>
+        ) : (
           <>
             <Alert status="info" mb={4}>
               <AlertIcon />
@@ -342,22 +347,16 @@ export default function App() {
                 />
               </FormControl>
               <Button
+                type="submit"
                 colorScheme="blue"
                 mt={4}
-                isLoading={formState.isSubmitting}
-                type="submit"
                 disabled={!formState.isValid}
+                isLoading={formState.isSubmitting}
               >
                 送信する
               </Button>
             </form>
           </>
-        )}
-        {formState.isSubmitted && (
-          <Alert status="success" mb={4}>
-            <AlertIcon />
-            送信完了しました。
-          </Alert>
         )}
       </Box>
     </ChakraProvider>

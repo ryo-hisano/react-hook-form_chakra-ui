@@ -41,7 +41,6 @@ interface FormInputs {
 export default function App() {
   const { register, errors, handleSubmit, formState } = useForm<FormInputs>({
     mode: "all",
-    reValidateMode: "onChange",
   });
 
   // ラジオボタン1用のState
@@ -109,14 +108,12 @@ export default function App() {
   ];
 
   // 送信時
-  const onSubmit = (data: FormInputs) => {
-    return new Promise<object>((resolve) => {
-      setTimeout(() => {
-        // サーバサイド登録処理等
-        alert(JSON.stringify(data));
-        resolve({ success: true });
-      }, 1000);
-    });
+  const sleep = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
+  const onSubmit = async (data: FormInputs) => {
+    await sleep(1000);
+    alert(JSON.stringify(data));
   };
 
   return (
